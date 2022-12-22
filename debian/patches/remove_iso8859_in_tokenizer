@@ -1,0 +1,11 @@
+--- a/lib/Perl/Tidy/Tokenizer.pm
++++ b/lib/Perl/Tidy/Tokenizer.pm
+@@ -6919,7 +6919,7 @@
+ 
+             elsif ( $tok eq '{' ) {
+ 
+-                # check for something like ${#} or ${©}
++                # check for something like ${#} or ${@}
+                 if (
+                     (
+                            $identifier eq '$'

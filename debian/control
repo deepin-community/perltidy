@@ -1,0 +1,26 @@
+Source: perltidy
+Section: devel
+Priority: optional
+Maintainer: Don Armstrong <don@debian.org>
+Build-Depends: debhelper (>= 12)
+Build-Depends-Indep: perl
+Standards-Version: 4.3.0
+Homepage: http://perltidy.sourceforge.net/
+Vcs-Git: https://salsa.debian.org/debian/perltidy.git
+Vcs-Browser: https://salsa.debian.org/debian/perltidy.git
+
+Package: perltidy
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}
+Description: Perl script indenter and reformatter
+ Perltidy is a Perl script which indents and reformats Perl
+ scripts to make them easier to read.
+ .
+ The formatting can be controlled with command line parameters.
+ The default parameter settings approximately follow the
+ suggestions in the Perl Style Guide.
+ .
+ Perltidy can also generate formatted HTML output from POD, and can
+ even generate colored output in HTML for scripts. See examples at
+ http://perltidy.sourceforge.net/
+ .
