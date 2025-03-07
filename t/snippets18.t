@@ -44,7 +44,7 @@ BEGIN {
 # testing --delete-side-comments and --nostatic-block-comments
 -dsc -nsbc
 ----------
-        'csc1'   => "-csc -csci=2 -ncscb",
+        'csc1'   => "-csc -csci=2 -ncscb -cscxl=asub",
         'csc2'   => "-dcsc",
         'def'    => "",
         'iob'    => "-iob",
@@ -184,6 +184,10 @@ sub macro_get_names { #
                 1, 4, 6, 4, 1,);
 #>>
 
+    local $Test::Builder::Level = $Test::Builder::Level + 1; ## no critic (Variables::ProhibitPackageVars)
+
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+
 
 
 # some blank lines follow
@@ -217,6 +221,15 @@ Some pod after __END__ to delete with -dp and trim with -trp
                 print( $_[0], "\n" );
             }
         } ## end sub message
+
+        my $message =sub {
+            if ( !defined( $_[0] ) ) {
+                print("Hello, World\n");
+            }
+            else {
+                print( $_[0], "\n" );
+            }
+        };
 ----------
 
         'iob' => <<'----------',
@@ -430,6 +443,10 @@ my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
 
 #>>
 
+local $Test::Builder::Level = $Test::Builder::Level + 1;
+
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+
 # some blank lines follow
 
 =pod
@@ -609,8 +626,7 @@ Mojo::IOLoop->next_tick(
 );
 
 $r = do
-  { sswitch( $words[ rand @words ] )
-    {
+  { sswitch( $words[ rand @words ] ) {
         case $words[0]:
         case $words[1]:
         case $words[2]:
@@ -619,12 +635,10 @@ $r = do
     }
   };
 
-try
-{
+try {
     die;
 }
-catch
-{
+catch {
     die;
 };
 #7...........
@@ -697,6 +711,15 @@ catch {
                 print( $_[0], "\n" );
             } ## end else [ if ( !defined( $_[0] ))
         } ## end sub message
+
+        my $message = sub {
+            if ( !defined( $_[0] ) ) {
+                print("Hello, World\n");
+            } ## end if ( !defined( $_[0] ))
+            else {
+                print( $_[0], "\n" );
+            } ## end else [ if ( !defined( $_[0] ))
+        };
 #9...........
         },
 
@@ -712,6 +735,15 @@ catch {
                 print( $_[0], "\n" );
             }
         }
+
+        my $message = sub {
+            if ( !defined( $_[0] ) ) {
+                print("Hello, World\n");
+            }
+            else {
+                print( $_[0], "\n" );
+            }
+        };
 #10...........
         },
 
@@ -727,6 +759,15 @@ catch {
                 print( $_[0], "\n" );
             }
         } ## end sub message
+
+        my $message = sub {
+            if ( !defined( $_[0] ) ) {
+                print("Hello, World\n");
+            }
+            else {
+                print( $_[0], "\n" );
+            }
+        };
 #11...........
         },
 

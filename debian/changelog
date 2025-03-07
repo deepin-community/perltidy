@@ -1,3 +1,45 @@
+perltidy (20250105-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Don Armstrong <don@debian.org>  Sun, 05 Jan 2025 15:04:44 -0800
+
+perltidy (20230309-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Trim trailing whitespace.
+  * Use secure URI in Homepage field.
+  * Bump debhelper from old 12 to 13.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Name,
+    Repository-Browse.
+  * Use canonical URL in Vcs-Browser.
+  * Update standards version to 4.6.1, no changes needed.
+
+ -- Don Armstrong <don@debian.org>  Sat, 17 Jun 2023 15:46:40 -0700
+
+perltidy (20230309-1) unstable; urgency=medium
+
+  [ Don Armstrong ]
+  * New upstream version
+    - Includes patches for Object::Pad (closes: #1037462)
+    - Remove obviated tokenizer patch
+
+ -- Don Armstrong <don@debian.org>  Sat, 17 Jun 2023 15:21:02 -0700
+
+perltidy (20220613-1) unstable; urgency=medium
+
+  * New upstream version
+     - Fixes UTF-8 issue with perl critic (closes: #998367)
+
+ -- Don Armstrong <don@debian.org>  Wed, 27 Jul 2022 16:26:29 -0700
+
+perltidy (20220217-1) unstable; urgency=medium
+
+  * New upstream version (closes: #1011467)
+
+ -- Don Armstrong <don@debian.org>  Tue, 24 May 2022 15:28:44 -0700
+
 perltidy (20210717-1) unstable; urgency=medium
 
   * New upstream version
@@ -129,7 +171,7 @@ perltidy (20031021-2) unstable; urgency=low
     in debian. (closes: #162066)
   * Change Build-Depends to perl (>=5.6.0-16) as per perl policy
   * Add reference to -st and note that - doesn't mean stdout to -o
-    documentation (closes: #202916) 
+    documentation (closes: #202916)
   * New upstream properly removes useless semi-colons (closes: #203171)
 
  -- Don Armstrong <don@donarmstrong.com>  Wed, 18 Aug 2004 22:54:01 -0700
@@ -183,5 +225,3 @@ perltidy (20010323-1) unstable; urgency=low
   * Adjusted paths in Makefile and fixed $DESTDIR problems.
 
  -- Dr. Guenter Bechly <gbechly@debian.org>  Tue, 27 Mar 2001 19:39:30 +0200
-
-
