@@ -46,7 +46,7 @@ BEGIN {
 -nboa
 ----------
         'braces7' => <<'----------',
--bli -blil='*'
+-bli -blil='*' -blixl='eval'
 ----------
         'def'       => "",
         'extrude'   => "--extrude",
@@ -261,7 +261,8 @@ my @globlist = ( grep { defined } @opt{qw( l q S t )} )
             params => "here_long",
             expect => <<'#1...........',
 # must not break after here target regardless of maximum-line-length
-$sth = $dbh->prepare(
+$sth =
+  $dbh->prepare(
     <<"END_OF_SELECT") or die "Couldn't prepare SQL";
     SELECT COUNT(duration),SUM(duration) 
     FROM logins WHERE username='$user'
@@ -369,11 +370,10 @@ $myfun = sub
     print("Hello, World\n");
   };
 
-eval
-  {
+eval {
     my $app = App::perlbrew->new( "install-patchperl", "-q" );
     $app->run();
-  } or do
+} or do
   {
     $error          = $@;
     $produced_error = 1;

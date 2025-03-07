@@ -343,7 +343,7 @@ my $a =
           ? $d1
           : $d2
       : ($e) ? $e1
-    : $e2
+      : $e2
   : ($f) ? ($g)
       ? $g1
       : $g2
@@ -362,7 +362,7 @@ print $p'u'a;    # print "mooo"
 
 sub a::that {
     $p't'u = "wwoo\n";
-    return sub { print $p't'u}
+    return sub { print $p't'u }
 }
 $a'that = a'that();
 $a'that->();     # print "wwoo"
@@ -477,10 +477,10 @@ use IO::File ();
             params => "def",
             expect => <<'#15...........',
 # Keep the space before the '()' here:
-use Foo::Bar ();
-use Foo::Bar ();
+use Foo::Bar     ();
+use Foo::Bar     ();
 use Foo::Bar 1.0 ();
-use Foo::Bar qw(baz);
+use Foo::Bar     qw(baz);
 use Foo::Bar 1.0 qw(baz);
 #15...........
         },

@@ -2,16 +2,17 @@ Source: perltidy
 Section: devel
 Priority: optional
 Maintainer: Don Armstrong <don@debian.org>
-Build-Depends: debhelper (>= 12)
+Build-Depends: debhelper-compat (= 13)
 Build-Depends-Indep: perl
-Standards-Version: 4.3.0
-Homepage: http://perltidy.sourceforge.net/
+Standards-Version: 4.6.1
+Homepage: https://perltidy.sourceforge.net/
 Vcs-Git: https://salsa.debian.org/debian/perltidy.git
-Vcs-Browser: https://salsa.debian.org/debian/perltidy.git
+Vcs-Browser: https://salsa.debian.org/debian/perltidy
 
 Package: perltidy
 Architecture: all
 Depends: ${perl:Depends}, ${misc:Depends}
+Multi-Arch: foreign
 Description: Perl script indenter and reformatter
  Perltidy is a Perl script which indents and reformats Perl
  scripts to make them easier to read.

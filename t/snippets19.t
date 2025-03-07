@@ -180,6 +180,8 @@ myfunc ( $a, $b, $c );    # test -sfp
 push ( @array, $val );    # test -skp and also -sak='push'
 split( /\|/, $txt );      # test -skp and also -sak='push'
 my ( $v1, $v2 ) = @_;     # test -sak='push'
+$c->    #sub set_whitespace_flags must look back past side comment
+  bind( $o, $n, [ \&$q, \%m ] );
 ----------
 
         'tightness' => <<'----------',
@@ -406,6 +408,8 @@ myfunc( $a, $b, $c );    # test -sfp
 push( @array, $val );    # test -skp and also -sak='push'
 split( /\|/, $txt );     # test -skp and also -sak='push'
 my ( $v1, $v2 ) = @_;    # test -sak='push'
+$c->    #sub set_whitespace_flags must look back past side comment
+  bind( $o, $n, [ \&$q, \%m ] );
 #14...........
         },
 
@@ -417,6 +421,8 @@ myfunc ( $a, $b, $c );    # test -sfp
 push ( @array, $val );    # test -skp and also -sak='push'
 split ( /\|/, $txt );     # test -skp and also -sak='push'
 my ( $v1, $v2 ) = @_;     # test -sak='push'
+$c->    #sub set_whitespace_flags must look back past side comment
+  bind ( $o, $n, [ \&$q, \%m ] );
 #15...........
         },
 
@@ -428,6 +434,8 @@ myfunc( $a, $b, $c );     # test -sfp
 push ( @array, $val );    # test -skp and also -sak='push'
 split( /\|/, $txt );      # test -skp and also -sak='push'
 my ( $v1, $v2 ) = @_;     # test -sak='push'
+$c->    #sub set_whitespace_flags must look back past side comment
+  bind( $o, $n, [ \&$q, \%m ] );
 #16...........
         },
 
@@ -435,14 +443,12 @@ my ( $v1, $v2 ) = @_;     # test -sak='push'
             source => "braces",
             params => "braces5",
             expect => <<'#17...........',
-sub message
-{
+sub message {
     if ( !defined( $_[0] ) )
       {
         print("Hello, World\n");
       }
-    else
-    {
+    else {
         print( $_[0], "\n" );
     }
 }
@@ -454,8 +460,7 @@ $myfun = sub {
 eval {
     my $app = App::perlbrew->new( "install-patchperl", "-q" );
     $app->run();
-} or do
-{
+} or do {
     $error          = $@;
     $produced_error = 1;
 };
@@ -471,10 +476,8 @@ Mojo::IOLoop->next_tick(
     }
 );
 
-$r = do
-{
-    sswitch( $words[ rand @words ] )
-    {
+$r = do {
+    sswitch( $words[ rand @words ] ) {
         case $words[0]:
         case $words[1]:
         case $words[2]:
@@ -483,12 +486,10 @@ $r = do
     }
 };
 
-try
-{
+try {
     die;
 }
-catch
-{
+catch {
     die;
 };
 #17...........

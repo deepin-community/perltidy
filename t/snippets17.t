@@ -52,8 +52,10 @@ BEGIN {
 -msc=10 -dbc -dp
 ----------
         'comments3' => <<'----------',
-# testing --maximum-consecutive-blank-lines=2 and --indent-spaced-block-comments --no-format-skipping
--mbl=2 -isbc -nfs
+--maximum-consecutive-blank-lines=2   # -mbl=2
+--indent-spaced-block-comments        # -isbc
+--no-format-skipping                  # -nfs
+--ignore-perlcritic-comments          # -ipc
 ----------
         'comments4' => <<'----------',
 # testing --keep-old-blank-lines=2 [=all] and 
@@ -76,10 +78,27 @@ BEGIN {
     $rsources = {
 
         'align32' => <<'----------',
-# should not get alignment here:
+# align just the last two lines
 my $c_sub_khwnd = WindowFromId $k_hwnd, 0x8008;    # FID_CLIENT
 ok $c_sub_khwnd, 'have kids client window';
 ok IsWindow($c_sub_khwnd), 'IsWindow works on the client';
+
+# parenless calls
+mkTextConfig $c, $x, $y, -anchor => 'se', $color;
+mkTextConfig $c, $x + 30, $y, -anchor => 's',  $color;
+mkTextConfig $c, $x + 60, $y, -anchor => 'sw', $color;
+mkTextConfig $c, $x, $y + 30, -anchor => 'e', $color;
+
+permute_test [ 'a', 'b', 'c' ],   '/', '/', [ 'a', 'b', 'c' ];
+permute_test [ 'a,', 'b', 'c,' ], '/', '/', [ 'a,', 'b', 'c,' ];
+permute_test [ 'a', ',', '#', 'c' ], '/', '/', [ 'a', ',', '#', 'c' ];
+permute_test [ 'f_oo', 'b_ar' ], '/', '/', [ 'f_oo', 'b_ar' ];
+
+# issue c093 - broken sub, but align fat commas
+use constant UNDEF_ONLY => sub { not defined $_[0] };
+use constant EMPTY_OR_UNDEF => sub {
+    !@_ or @_ == 1 && !defined $_[0];
+};
 ----------
 
         'bos' => <<'----------',
@@ -154,6 +173,10 @@ sub macro_get_names { #
                 1, 3, 3, 1,
                 1, 4, 6, 4, 1,);
 #>>
+
+    local $Test::Builder::Level = $Test::Builder::Level + 1; ## no critic (Variables::ProhibitPackageVars)
+
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
 
 
 
@@ -314,10 +337,27 @@ sub plugh () : Ugly('\(") : Bad;
             source => "align32",
             params => "def",
             expect => <<'#1...........',
-# should not get alignment here:
+# align just the last two lines
 my $c_sub_khwnd = WindowFromId $k_hwnd, 0x8008;    # FID_CLIENT
-ok $c_sub_khwnd, 'have kids client window';
+ok $c_sub_khwnd,           'have kids client window';
 ok IsWindow($c_sub_khwnd), 'IsWindow works on the client';
+
+# parenless calls
+mkTextConfig $c, $x,      $y,      -anchor => 'se', $color;
+mkTextConfig $c, $x + 30, $y,      -anchor => 's',  $color;
+mkTextConfig $c, $x + 60, $y,      -anchor => 'sw', $color;
+mkTextConfig $c, $x,      $y + 30, -anchor => 'e',  $color;
+
+permute_test [ 'a', 'b', 'c' ],      '/', '/', [ 'a', 'b', 'c' ];
+permute_test [ 'a,', 'b', 'c,' ],    '/', '/', [ 'a,', 'b', 'c,' ];
+permute_test [ 'a', ',', '#', 'c' ], '/', '/', [ 'a', ',', '#', 'c' ];
+permute_test [ 'f_oo', 'b_ar' ],     '/', '/', [ 'f_oo', 'b_ar' ];
+
+# issue c093 - broken sub, but align fat commas
+use constant UNDEF_ONLY     => sub { not defined $_[0] };
+use constant EMPTY_OR_UNDEF => sub {
+    !@_ or @_ == 1 && !defined $_[0];
+};
 #1...........
         },
 
@@ -412,6 +452,10 @@ my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
 
 #>>
 
+local $Test::Builder::Level = $Test::Builder::Level + 1; ## no critic (Variables::ProhibitPackageVars)
+
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+
 # some blank lines follow
 
 =pod
@@ -487,6 +531,8 @@ sub macro_get_names {          #
 #>>>
 
 my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
+
+local $Test::Builder::Level = $Test::Builder::Level + 1;          ## no critic (Variables::ProhibitPackageVars)
 
 
 __END__
@@ -573,6 +619,11 @@ my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
 my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
 
 #>>
+
+local $Test::Builder::Level =
+  $Test::Builder::Level + 1;    ## no critic (Variables::ProhibitPackageVars)
+
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
 
 
 # some blank lines follow
@@ -677,6 +728,10 @@ sub macro_get_names {    #
                 1, 4, 6, 4, 1,);
 #>>
 
+local $Test::Builder::Level = $Test::Builder::Level + 1;    ## no critic (Variables::ProhibitPackageVars)
+
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+
 
 
 # some blank lines follow
@@ -775,6 +830,10 @@ my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
 
 #>>
 
+local $Test::Builder::Level = $Test::Builder::Level + 1;    ## no critic (Variables::ProhibitPackageVars)
+
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+
 # some blank lines follow
 
 =pod
@@ -802,7 +861,8 @@ Some pod after __END__ to delete with -dp and trim with -trp
 # This single line should break into multiple lines, even with -l=0
 # sub 'tight_paren_follows' should break the do block
 $body =
-  SOAP::Data->name('~V:Fault')->attr( { 'xmlns' => $SOAP::Constants::NS_ENV } )
+  SOAP::Data->name('~V:Fault')
+  ->attr( { 'xmlns' => $SOAP::Constants::NS_ENV } )
   ->value(
     \SOAP::Data->set_value(
         SOAP::Data->name(
@@ -995,12 +1055,12 @@ $i++;
 # git22: Preserve function signature on a single line
 # This behavior is controlled by 'sub weld_signature_parens'
 
-sub foo ( $x, $y = "abcd" ) {
+sub foo( $x, $y = "abcd" ) {
     $x . $y;
 }
 
 # do not break after closing do brace
-sub foo ( $x, $y = do { {} }, $z = 42, $w = do { "abcd" } ) {
+sub foo( $x, $y = do { {} }, $z = 42, $w = do { "abcd" } ) {
     $x . $y . $z;
 }
 
